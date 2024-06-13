@@ -7,6 +7,6 @@ A Feature search project for the AI class
 2. Run the new_scatter_plot.py file and you will get the output as the .pdf file of the log files present in the working(current) directory.
 
 # File Conventions
-1.All .csv are log files
-2.All .pdf files are plot files
-3.files are named by their combination in the form <algorithm_type>_<dataset_type> e.g :- file having the 'large_Data' and 'Forward selection' is related accordingly.
+1. All .csv are log files
+2. All .pdf files are plot files
+3. files are named by their combination in the form <algorithm_type>_<dataset_type> e.g :- file having the 'large_Data' and 'Forward selection' is related accordingly.
