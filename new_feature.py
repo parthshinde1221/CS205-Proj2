@@ -56,8 +56,8 @@ def forward_selection(X, y, k=1):
             X_subset = X[:, current_features]
             y_true, y_pred = nearest_neighbor_loo(X_subset, y, k)
             accuracy = calculate_accuracy(y_true, y_pred)
-            print(f"Using feature(s) {set(current_features)} accuracy is {accuracy*100:.1f}%")
-            log.append((set(current_features), accuracy))
+            print(f"Using feature(s) {set(f + 1 for f in current_features)} accuracy is {accuracy*100:.1f}%")
+            log.append((set(f + 1 for f in current_features), accuracy))
             if accuracy > best_accuracy:
                 best_accuracy = accuracy
                 best_feature = feature
@@ -65,6 +65,7 @@ def forward_selection(X, y, k=1):
         if best_feature is not None:
             selected_features.append(best_feature)
             remaining_features.remove(best_feature)
+            print(f"Feature {best_feature + 1} added to the set ,as the resultant feature set has best accuracy {best_accuracy*100:.1f}%. Current feature set: {set(f + 1 for f in selected_features)}")
         else:
             break
 
@@ -77,6 +78,7 @@ def backward_elimination(X, y, k=1):
     y_true, y_pred = nearest_neighbor_loo(X, y, k)
     best_accuracy = calculate_accuracy(y_true, y_pred)
     log = [(set(selected_features), best_accuracy)]
+    
 
     print("Beginning search.")
 
@@ -87,13 +89,14 @@ def backward_elimination(X, y, k=1):
             X_subset = X[:, current_features]
             y_true, y_pred = nearest_neighbor_loo(X_subset, y, k)
             accuracy = calculate_accuracy(y_true, y_pred)
-            print(f"Using feature(s) {set(current_features)} accuracy is {accuracy*100:.1f}%")
-            log.append((set(current_features), accuracy))
+            print(f"Using feature(s) {set(f + 1 for f in current_features)} accuracy is {accuracy*100:.1f}%")
+            log.append((set(f + 1 for f in current_features), accuracy))
             if accuracy > best_accuracy:
                 best_accuracy = accuracy
                 worst_feature = feature
         if worst_feature is not None:
             selected_features.remove(worst_feature)
+            print(f"Feature {worst_feature + 1} removed from the set,as the resultant feature set has best accuracy {best_accuracy*100:.1f}%. Current feature set: {set(f + 1 for f in selected_features)}")
         else:
             break
 
@@ -211,7 +214,7 @@ def main():
         print("Invalid choice.")
         return
 
-    print(f"Finished search!! The best feature subset is {set(best_features)}, which has an accuracy of {best_accuracy*100:.1f}%")
+    print(f"Finished search!! The best feature subset is {set(f + 1 for f in best_features)}, which has an accuracy of {best_accuracy*100:.1f}%")
 
 if __name__ == "__main__":
     main()
